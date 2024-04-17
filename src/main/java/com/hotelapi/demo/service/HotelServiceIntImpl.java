@@ -8,6 +8,11 @@ import org.springframework.stereotype.Service;
 import com.hotelapi.demo.models.Hotel;
 import com.hotelapi.demo.repository.HotelRespository;
 
+import jakarta.transaction.Transactional;
+import java.util.Optional;
+
+import javax.swing.text.html.Option;
+
 @Service
 public class HotelServiceIntImpl implements HotelServiceInt {
 
@@ -19,11 +24,12 @@ public class HotelServiceIntImpl implements HotelServiceInt {
     }
 
     @Override
-    public void addHotel(Hotel hotel) {
-        hotelRespository.save(hotel);
+    public Hotel addHotel(Hotel hotel) {
+        return hotelRespository.save(hotel);
     }
 
     @Override
+    @Transactional
     public void updateHotel(Hotel hotel) {
         hotelRespository.save(hotel);
 
@@ -36,12 +42,13 @@ public class HotelServiceIntImpl implements HotelServiceInt {
     }
 
     @Override
-    public void deleteHotel(int hotelId) {
-        hotelRespository.deleteById(hotelId);
+    @Transactional
+    public void deleteHotelById(int hotelId) {
+       hotelRespository.deleteById(hotelId);
     }
 
     @Override
-    public List<Hotel> getHotelByCity(String city) {
+    public List<Hotel> getHotelsByCity(String city) {
         return hotelRespository.findByAddressCity(city);
     }
 

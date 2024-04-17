@@ -10,13 +10,13 @@ import com.hotelapi.demo.models.Hotel;
 
 public interface HotelServiceInt {
     //crud interface definition;
-    void addHotel(Hotel hotel);
+    Hotel addHotel(Hotel hotel);
     void updateHotel(Hotel hotel);
     Hotel getHotelById(int hotelId);
-    void deleteHotel(int hotelId);
+    void deleteHotelById(int hotelId);
 
     //searching of hotel interface
-    List<Hotel> getHotelByCity(String city);//for thie we need derived query findBy,getBy
+    List<Hotel> getHotelsByCity(String city);//for thie we need derived query findBy,getBy
     List<Hotel> getHotelByMenu(String menu);//for this interface we develope @ query which is know 
     
     //@querey known as JPQL in Hotel repository

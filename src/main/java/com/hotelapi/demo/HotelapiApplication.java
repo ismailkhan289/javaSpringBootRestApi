@@ -1,38 +1,38 @@
 package com.hotelapi.demo;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+// import java.util.Arrays;
+// import java.util.HashSet;
+// import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.hotelapi.demo.models.Address;
-import com.hotelapi.demo.models.Delivery;
-import com.hotelapi.demo.models.Hotel;
-import com.hotelapi.demo.models.Menu;
-import com.hotelapi.demo.service.DeliveryInt;
-import com.hotelapi.demo.service.HotelServiceInt;
-import com.hotelapi.demo.service.MenuServiceInt;
+// import com.hotelapi.demo.models.Address;
+// import com.hotelapi.demo.models.Delivery;
+// import com.hotelapi.demo.models.Hotel;
+// import com.hotelapi.demo.models.Menu;
+// import com.hotelapi.demo.service.DeliveryInt;
+// import com.hotelapi.demo.service.HotelServiceInt;
+// import com.hotelapi.demo.service.MenuServiceInt;
 
 @SpringBootApplication
 
-public class HotelapiApplication implements CommandLineRunner {
+public class HotelapiApplication  {
 	
 	public static void main(String[] args) {
 		SpringApplication.run(HotelapiApplication.class, args);
 	}
 
-	@Autowired
-	HotelServiceInt hotelService;
-	@Autowired
-	DeliveryInt deliveryInt;
-	@Autowired
-	MenuServiceInt menuService;
-	@Override
-	public void run(String... args) throws Exception {
+	// @Autowired
+	// HotelServiceInt hotelService;
+	// @Autowired
+	// DeliveryInt deliveryInt;
+	// @Autowired
+	// MenuServiceInt menuService;
+	// @Override
+	// public void run(String... args) throws Exception {
 		
 		// Address address=new Address("ingloStra","essen",22331,"BRW");
 		// Menu menu1=new Menu("NIhari",23);
@@ -91,12 +91,12 @@ public class HotelapiApplication implements CommandLineRunner {
 		// .stream()
 		// .forEach((h)->System.out.println(h.getHotelName()+" "+h.getAddress().getCity()));
 
-		menuService.getMenuByHotel("kubi")
-			.forEach((m)->System.out.println(m.getMenuName()+" "+m.getPrice()));
+		// menuService.getMenuByHotel("kubi")
+		// 	.forEach((m)->System.out.println(m.getMenuName()+" "+m.getPrice()));
 
 		
 
-	}
+	// }
 
 	
 

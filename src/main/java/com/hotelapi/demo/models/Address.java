@@ -65,6 +65,14 @@ public class Address {
     public void setState(String state) {
         this.state = state;
     }
+
+    public Integer getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(Integer addressId) {
+        this.addressId = addressId;
+    }
     
   
 }

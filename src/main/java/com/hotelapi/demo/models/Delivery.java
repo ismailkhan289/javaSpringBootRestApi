@@ -3,6 +3,11 @@ package com.hotelapi.demo.models;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -23,6 +28,7 @@ public class Delivery {
     
     //Referencing hotel table
     @ManyToMany(mappedBy = "deliveries",cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
+    @JsonIgnore 
     private Set<Hotel> hotelList = new HashSet<>();
     
     public Delivery() {
@@ -32,9 +38,45 @@ public class Delivery {
         this.partnerName = partnerName;
         this.charges = charges;
     }
+    
+    public String getPartnerName() {
+		return partnerName;
+	}
+
+	public void setPartnerName(String partnerName) {
+		this.partnerName = partnerName;
+	}
+
+	public double getCharges() {
+		return charges;
+	}
+
+	public void setCharges(double charges) {
+		this.charges = charges;
+	}
+
+	public Set<Hotel> getHotelList() {
+		return hotelList;
+	}
+
+	public void setHotelList(Set<Hotel> hotelList) {
+		this.hotelList = hotelList;
+	}
+
+	
+
     @Override
     public String toString() {
-        return "Delivery [partnerName=" + partnerName + ", charges=" + charges + "]";
+        return "Delivery [deliveryId=" + deliveryId + ", partnerName=" + partnerName + ", charges=" + charges
+                + ", hotelList=" + hotelList + "]";
+    }
+
+    public Integer getDeliveryId() {
+        return deliveryId;
+    }
+
+    public void setDeliveryId(Integer deliveryId) {
+        this.deliveryId = deliveryId;
     }
 
     

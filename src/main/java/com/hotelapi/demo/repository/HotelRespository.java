@@ -19,10 +19,14 @@ public interface HotelRespository extends JpaRepository<Hotel, Integer> {
     //Hotel->Address->streetName()
     List<Hotel>  findByAddressStreetName(String location);
 
-    //these are know as @query and also known as JPQL
+    //these are known as @query and also known as JPQL
     @Query("FROM Hotel h INNER JOIN h.menuList mn WHERE mn.menuName=?1")
     List<Hotel> getHotelByMenu(String menuName);
 
+    
+
+    
+    
     @Query("FROM Hotel h INNER JOIN h.deliveries d WHERE d.partnerName=?1")
     List<Hotel> getHotelByDeliveryPartnerName(String partnerName);
 

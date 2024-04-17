@@ -1,5 +1,7 @@
 package com.hotelapi.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,6 +20,7 @@ public class Menu {
     private double price;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
 
@@ -57,6 +60,14 @@ public class Menu {
     @Override
     public String toString() {
         return "Menu [menuName=" + menuName + ", price=" + price + "]";
+    }
+
+    public Integer getMenuId() {
+        return menuId;
+    }
+
+    public void setMenuId(Integer menuId) {
+        this.menuId = menuId;
     }
     
     }

@@ -64,6 +64,8 @@ package com.hotelapi.demo.models;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -103,7 +105,7 @@ public class Hotel {
 	//delivery table Attribute in hotel, one hotel many delivery partner, on many to many
 	//cascade will be persist and the hotel entity attirbute for delivery(deliveries) will be 
 	//mappedby there on at Entity attribute of hotel 
-	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	@JoinTable(name = "hotel_delivery_my", 
 				joinColumns = @JoinColumn(name="hotel_id"),
 				inverseJoinColumns = @JoinColumn(name="delivery_id"))
@@ -123,6 +125,12 @@ public class Hotel {
 	public String toString() {
 		return "Hotel [hotelName=" + hotelName + ", address=" + address + ", menuList=" + menuList + ", deliveries="
 				+ deliveries + "]";
+	}
+	public Integer getHotelId() {
+		return hotelId;
+	}
+	public void setHotelId(Integer hotelId) {
+		this.hotelId = hotelId;
 	}
 	public String getHotelName() {
 		return hotelName;
