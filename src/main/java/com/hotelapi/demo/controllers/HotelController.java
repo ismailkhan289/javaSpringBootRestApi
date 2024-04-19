@@ -58,7 +58,7 @@ public class HotelController {
     }
     @DeleteMapping("/hotels/hotel-by-id/{hotelId}")
     public ResponseEntity<Void> deleteHotel(@PathVariable int hotelId){
-        System.out.println(hotelId);
+        // System.out.println(hotelId);
         // Hotel getHotel=hotelServiceInt.getHotelById(hotelId);
         hotelServiceInt.deleteHotelById(hotelId);
         return ResponseEntity.ok().build();
