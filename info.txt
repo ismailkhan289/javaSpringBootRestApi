@@ -1,0 +1,64 @@
+for maven build jar file
+1. Insure that the project is running smothly along with mysql database
+2. Check application properties file before making a jar file 
+3. build a jar file using "mvn package" this will create a file in target folder rename 
+as per your requirments.
+4. Create a docker file in the project root directory for example "Dockerfile"
+5. Enter the required perameters or values in the Dockerfile 
+    FROM openjdk:17-alpine
+    EXPOSE 8081
+    COPY target/hotelapi.jar  hotelapi-docker.jar
+    ENTRYPOINT [ "java","-jar","hotelapi-docker.jar" ]
+6. Start your docker application that is downloaded and install and running.
+7. If your application is connected with some Database through mySQL or MongoDB the a file 
+   "docker-compose.yml" is require before creating image for docker.
+8. Lets create a docker-compose.yml file in the root directory as you create the Dockerfile with
+   following details
+   
+   version: '3.8'
+    services:
+    mysql:
+        image: mysql:8.0.27  //version
+        restart: always 
+        environment:
+        MYSQL_DATABASE: your_database_name
+        MYSQL_USER: your_mysql_username
+        MYSQL_PASSWORD: your_mysql_password
+        ports:
+        - "3307:3306"  //we can change it 3307 if the port 3306 is already occupied
+        volumes:
+        - mysql_data:/var/lib/mysql
+
+    spring-jpa-app:   //this is image name when we create using docker 
+        build: .
+        ports:
+        - "8080:8080" 
+        depends_on:
+        - mysql
+        environment:
+        SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/your_database_name?useSSL=false&serverTimezone=UTC
+        SPRING_DATASOURCE_USERNAME: your_mysql_username
+        SPRING_DATASOURCE_PASSWORD: your_mysql_password
+
+    volumes:
+    mysql_data:
+
+9. Now create docker image using command "docker build -t your-image-name ."
+10. Once the process is completed open your docker application your project image is created.
+//
+Method 2. Verified.
+1.  Create a docker image of mysql database with password and database name;
+    docker run -p 3307:3306 --name mysqldb - MYSQL_PASSWORD=root -e MYSQL_DATABASE=test mysql:8.0.13
+2.  application properties file configuration
+    spring.jpa.hibernate.ddl-auto=update
+    spring.datasource.url=jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/myhotldb
+    spring.datasource.username=${MYSQL_USER:root}
+    spring.datasource.password=${MYSQL_PASSWORD:root}
+3.  Create docker network and connect the mysqldb that is create on step 1
+    docker network create mySpringBootNetwork
+    docker network connect mySpringBootNetwork mysqldb
+4.  Create docker image of your app and connect with network
+    docker run -p 9090:8080 --name "your jar file name" --net mySpringBootNetwork -e MYSQL_HOST=mysqldb
+    -e MYSQL_USER=root -e MYSQL_PASSWORD=root -e MYSQL_PORT=3306 "name your image as you like"
+
+

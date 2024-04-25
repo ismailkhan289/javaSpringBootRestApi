@@ -1,27 +1,28 @@
 version: '3.8'
 
 services:
-  mysql:
-    image: mysql:8.0.27
+  hotelapi:
+    build:  \target\hotelapi
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/myhotldb
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    depends_on:
+      - db  # Corrected dependency name
+
+  db:  # Renamed from mysql_data to db
+    image: mysql:latest
     restart: always
     environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: "true"
       MYSQL_DATABASE: myhotldb
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: root
     ports:
       - "3307:3306"
     volumes:
-      - mysql_data:/var/lib/mysql
-
-  spring-jpa-app:
-    build: .
-    ports:
-      - "8080:8081"
-    depends_on:
-      - mysql
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/myhotldb
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
+      - db_data:/var/lib/mysql
 
 volumes:
-  mysql_data:
+  db_data:
